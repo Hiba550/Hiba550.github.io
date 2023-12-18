@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Personal Cloud Storage</title>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container">
+            <h1>Personal Cloud Storage</h1>
+            <ul id="nav-links">
+                <!-- These links will be populated dynamically after login -->
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Login Form -->
+    <div class="container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- File Upload Form -->
+    <form id="file-upload-form">
+        <input type="file" id="file-upload" accept=".jpg, .jpeg, .png, .gif, .pdf" />
+        <button type="submit">Upload File</button>
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1348.0/aws-sdk.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazon-cognito-identity-js/5.0.10/amazon-cognito-identity.min.js"></script>
+    <script src="script.js"></script>
+    
+
+</body>
+
+</html>
