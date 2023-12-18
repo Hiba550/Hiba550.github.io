@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cloud Storage</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      /* Reset some default styles */
+      body, h1, h2, ul, li, p {
+          margin: 0;
+          padding: 0;
+      }
+      
+      /* Base styles */
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f0f0;
+      }
+      
+      header {
+          background-color: #333;
+          color: #fff;
+          padding: 20px;
+          text-align: center;
+      }
+      
+      main {
+          max-width: 800px; /* Adjust the width as needed */
+          margin: 20px auto;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      
+      form {
+          text-align: left;
+          margin-top: 20px; /* Add some space below the previous element */
+      }
+      
+      label {
+          display: block;
+          margin-bottom: 5px;
+      }
+      
+      input[type="file"] {
+          display: none; /* Hide the file input */
+      }
+      
+      label.upload-label {
+          padding: 10px 20px;
+          background-color: #333;
+          color: #fff;
+          border-radius: 3px;
+          cursor: pointer;
+          display: inline-block;
+          margin-right: 10px; /* Adjust spacing */
+      }
+      
+      label.upload-label:hover {
+          background-color: #555;
+      }
+      
+      button[type="submit"] {
+          padding: 10px 20px;
+          background-color: #333;
+          color: #fff;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+          margin-top: 10px; /* Add some space below the file input */
+      }
+      
+      button[type="submit"]:hover {
+          background-color: #555;
+      }
+      
+      /* Style the file list */
+      ul {
+          list-style-type: none;
+          padding: 10px;
+          text-align: center;
+      }
+      
+      ul li {
+          display: inline;
+          margin-right: 20px;
+      }
+      
+      ul li a {
+          text-decoration: none;
+          color: #333;
+      }
+      
+      ul li a:hover {
+          text-decoration: underline;
+      }
+      
+      /* Style the delete file form */
+      form[action^="/delete/"] {
+          margin-top: 20px; /* Add space below the previous section */
+      }
+      
+      select[name="fileToDelete"] {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+      }
+      
+      /* Style the logout link */
+      a[href="/logout"] {
+          display: block;
+          margin-top: 20px; /* Add space below the previous section */
+      }
+      
+    </style>
+    <link rel="stylesheet" href="https://horizon-tailwind-react-corporate-7s21b54hb-horizon-ui.vercel.app/static/css/main.d7f96858.css" />
+
+</head>
+<body>
+    <header>
+      <h1>Your Cloud Storage</h1>
+    </header>
+
+    
+  
+    <main>
+      <nav class="flex" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="javascript:history.back();" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+              <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+              </svg>
+              Home
+            </a>
+          </li>
+        </ol>
+      </nav>
+      
+
+      <!-- File Upload Form -->
+      <h2>Upload a File</h2>
+      <form action="/upload?folder_name={{ current_folder }}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="username" value="{{ session['username'] }}">
+        <label class="upload-label" for="file">Choose a File</label>
+        <input
+            type="file"
+            id="file"
+            name="file"
+            accept=".txt, .pdf, .jpg, .png"
+            required
+        />
+        <button type="submit">Upload</button>
+    </form>
+    
+      <section>
+        <!-- File Download Links -->
+        <h2>Download Files</h2>
+        <ul>
+          {% for filename in uploaded_files %}
+          <li>
+              <a href="{{ url_for('download_file', folder_name=current_folder, filename=filename) }}" download>{{ filename }}</a>
+          </li>
+          {% endfor %}
+      </ul>
+      
+      </section>
+
+      
+  
+      <section>
+        <!-- File Deletion Form -->
+        <h2>Delete a File</h2>
+        <form action="/delete/{{ current_folder }}" method="POST">
+          <select name="fileToDelete" required>
+            {% for filename in uploaded_files %}
+            <option value="{{ filename }}">{{ filename }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit">Delete</button>
+        </form>
+      </section>
+  
+      <section>
+        <!-- Logout Button -->
+        <br />
+        <a href="/logout">Logout</a>
+      </section>
+    </main>
+  </body>
+  </html>
+  
