@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Binary Search Guessing Game</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link href="background.gif" rel="preload" as="image" />
+</head>
+
+<body>
+  
+  <div class="bg-image"></div>
+  <div id="game-container">
+    <h1>Binary Search Guessing Game</h1>
+    <p>Think of a number within your preferred maximum range.</p>
+    <p>Enter the maximum value:</p>
+    <input type="number" id="maxValue" placeholder="Maximum value" />
+    <button onclick="startGame()">Start Game</button>
+    <p id="guess"></p>
+    <button id="higher" style="display: none;" onclick="nextGuess(true)">Higher</button>
+    <button id="lower" style="display: none;" onclick="nextGuess(false)">Lower</button>
+    <button id="confirm" style="display: none;" onclick="confirmGuess()">Yes, that's it!</button>
+    <p id="result" style="display: none;"></p>
+    <p id="attempts" style="display: none;"></p>
+  </div>
+
+
+  <script>
+    let min = 1;
+    let max = 100;
+    let guess;
+    let attempts = 0;
+
+    function startGame() {
+      max = parseInt(document.getElementById("maxValue").value) || 100;
+      min = 1;
+      guess = Math.floor(max / 2);
+      attempts = 0;
+      document.getElementById("guess").innerText = `Is your number ${guess}?`;
+      document.getElementById("higher").style.display = "inline-block";
+      document.getElementById("lower").style.display = "inline-block";
+      document.getElementById("confirm").style.display = "inline-block";
+      document.getElementById("result").style.display = "none";
+      document.getElementById("attempts").style.display = "none";
+    }
+
+    function confirmGuess() {
+      document.getElementById("higher").style.display = "none";
+      document.getElementById("lower").style.display = "none";
+      document.getElementById("confirm").style.display = "none";
+      document.getElementById("result").innerText = `Your number is ${guess}!`;
+      document.getElementById("result").style.display = "block";
+      document.getElementById("attempts").innerText = `Number found in ${attempts} attempts.`;
+      document.getElementById("attempts").style.display = "block";
+    }
+
+    function nextGuess(isHigher) {
+      attempts++;
+
+      if (isHigher) {
+        min = guess + 1;
+      } else {
+        max = guess - 1;
+      }
+      guess = Math.floor((min + max) / 2);
+
+      if (min <= max) {
+        document.getElementById("guess").innerText = `Is your number ${guess}?`;
+      } else {
+        document.getElementById("guess").innerText = "";
+        document.getElementById("higher").style.display = "none";
+        document.getElementById("lower").style.display = "none";
+        document.getElementById("result").innerText = `Sorry, your number is not within 1-${max}.`;
+        document.getElementById("result").style.display = "block";
+        document.getElementById("attempts").innerText = `Number not found within the specified range.`;
+        document.getElementById("attempts").style.display = "block";
+      }
+
+      if (min === max) {
+        confirmGuess();
+      }
+    }
+  </script>
+  <footer>
+    <p>&copy; 2023 "JIYATHHIBA.ME"</p>
+  </footer
+</body>
+
+</html>
+

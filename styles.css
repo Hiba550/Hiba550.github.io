@@ -1,0 +1,84 @@
+body {
+    background: url("back.gif") no-repeat center / cover;
+    min-height: 100vh;
+  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  
+  #game-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+  }
+  
+  /* Footer */
+  
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: #ffffff;
+    margin-right: 10px;
+  }
+  
+  button:hover {
+    background-color: #3e8e41;
+  }
+  
+  #result,
+  #attempts {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  #result {
+    color: #4caf50;
+  }
+  
+  #attempts {
+    color: #ff9800;
+  }
+  
+  @media (max-width: 500px) {
+    #game-container {
+      margin: 0 10px;
+    }
+  }
+  
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
